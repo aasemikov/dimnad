@@ -296,7 +296,7 @@ body {
 /* Дата внизу по центру - выделенная, приподнята */
 .preloader__date {
     position: absolute;
-    bottom: 160px;
+    bottom: 100px;
     left: 50%;
     transform: translateX(-50%) translateZ(0);
     z-index: 2;
@@ -416,7 +416,7 @@ body:not(.preloading)>*:not(.preloader) {
     }
 
     .preloader__date {
-        bottom: 160px;
+        bottom: 100px;
     }
 
     .preloader__date-text {
@@ -474,7 +474,7 @@ body:not(.preloading)>*:not(.preloader) {
     }
 
     .preloader__date {
-        bottom: 160px;
+        bottom: 100px;
     }
 
     .preloader__date-text {
@@ -515,7 +515,7 @@ body:not(.preloading)>*:not(.preloader) {
     }
 
     .preloader__date {
-        bottom: 160px;
+        bottom: 100px;
     }
 
     .preloader__date-text {
@@ -621,7 +621,7 @@ p.text {
 /* Дата внизу по центру */
 .welcome__date {
     position: absolute;
-    bottom: 160px;
+    bottom: 100px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -653,7 +653,7 @@ p.text {
 /* Адаптивность для даты */
 @media (max-width: 768px) {
     .welcome__date {
-        bottom: 160px;
+        bottom: 100px;
     }
 
     .welcome__date-text {
@@ -668,7 +668,7 @@ p.text {
 
 @media (max-width: 480px) {
     .welcome__date {
-        bottom: 160px;
+        bottom: 100px;
     }
 
     .welcome__date-text {
@@ -683,7 +683,7 @@ p.text {
 
 @media (max-width: 350px) {
     .welcome__date {
-        bottom: 160px;
+        bottom: 100px;
     }
 
     .welcome__date-text {
