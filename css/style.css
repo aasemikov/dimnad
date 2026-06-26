@@ -618,6 +618,31 @@ p.text {
     transform: rotate(-30deg) translate(-85%, -54px);
 }
 
+/* Текст приглашения над датой */
+.welcome__invite {
+    position: absolute;
+    bottom: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+}
+
+.welcome__invite-text {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: 24px;
+    font-weight: 400;
+    font-style: italic;
+    color: #F1E0A1;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
 /* Дата внизу по центру */
 .welcome__date {
     position: absolute;
@@ -650,8 +675,17 @@ p.text {
             transparent 100%);
 }
 
-/* Адаптивность для даты */
+/* Адаптивность */
 @media (max-width: 768px) {
+    .welcome__invite {
+        bottom: 170px;
+    }
+
+    .welcome__invite-text {
+        font-size: 20px;
+        letter-spacing: 1.5px;
+    }
+
     .welcome__date {
         bottom: 100px;
     }
@@ -667,6 +701,16 @@ p.text {
 }
 
 @media (max-width: 480px) {
+    .welcome__invite {
+        bottom: 160px;
+        gap: 4px;
+    }
+
+    .welcome__invite-text {
+        font-size: 17px;
+        letter-spacing: 1px;
+    }
+
     .welcome__date {
         bottom: 100px;
     }
@@ -682,6 +726,14 @@ p.text {
 }
 
 @media (max-width: 350px) {
+    .welcome__invite {
+        bottom: 150px;
+    }
+
+    .welcome__invite-text {
+        font-size: 15px;
+    }
+
     .welcome__date {
         bottom: 100px;
     }
@@ -748,11 +800,27 @@ a.place__button {
     text-align: center;
 }
 
+.time__wrapper {
+    position: relative;
+}
+
 .time__list {
     margin-top: 35px;
     display: flex;
     flex-direction: column;
     gap: 14px;
+}
+
+.time__line {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.time__line img {
+    width: 100%
 }
 
 .time__list-items {

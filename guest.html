@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Данные гостей</title>
+    <style>
+        body {
+            font-family: 'Montserrat Alternates', sans-serif;
+            padding: 20px;
+            background-color: #FBF3D4;
+            color: #676133;
+        }
+
+        h1 {
+            color: #676133;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+
+        th,
+        td {
+            border: 1px solid #676133;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #676133;
+            color: #FBF3D4;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #4F2E1B;
+            color: #FBF3D4;
+            border: none;
+            border-radius: 85px;
+            cursor: pointer;
+            font-family: 'Montserrat Alternates', sans-serif;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background-color: #676133;
+        }
+
+        .stats {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Данные гостей</h1>
+
+    <div>
+        <button onclick="loadGuests()">🔄 Обновить данные</button>
+        <button onclick="exportCSV()">📥 Скачать CSV</button>
+    </div>
+
+    <div class="stats" id="stats"></div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Имя</th>
+                <th>Алкоголь</th>
+                <th>Придет</th>
+                <th>Дата заполнения</th>
+            </tr>
+        </thead>
+        <tbody id="guestsBody">
+        </tbody>
+    </table>
+
+    <script>
+        // Конфигурация GitHub (та же, что и в основном скрипте)
+        const GITHUB_CONFIG = {
+            owner: 'aasemikov',
+            repo: 'form-result-dimnad',
+            path: 'guest.csv',
+            token: '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'
+        };
+
+        async function loadGuests() {
+            try {
+                const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.path}`;
+
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `token ${GITHUB_CONFIG.token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка: ${response.status}`);
+                }
+
+                const fileData = await response.json();
+                const csvContent = decodeURIComponent(escape(atob(fileData.content)));
+
+                const lines = csvContent.split('\n').filter(line => line.trim());
+                const tbody = document.getElementById('guestsBody');
+                const stats = document.getElementById('stats');
+                tbody.innerHTML = '';
+
+                // Пропускаем заголовок (первая строка)
+                let totalGuests = 0;
+                let comingGuests = 0;
+                let alcoholCount = {};
+
+                for (let i = 1; i < lines.length; i++) {
+                    const columns = lines[i].split(';');
+                    if (columns.length >= 4) {
+                        totalGuests++;
+
+                        // Считаем статистику
+                        if (columns[2].toLowerCase() === 'да') {
+                            comingGuests++;
+                        }
+
+                        // Считаем алкоголь
+                        const alcohols = columns[1].split(',');
+                        alcohols.forEach(alcohol => {
+                            const trimmed = alcohol.trim();
+                            if (trimmed && trimmed !== 'не указано') {
+                                alcoholCount[trimmed] = (alcoholCount[trimmed] || 0) + 1;
+                            }
+                        });
+
+                        const row = tbody.insertRow();
+                        row.insertCell().textContent = i;
+                        row.insertCell().textContent = columns[0];
+                        row.insertCell().textContent = columns[1];
+                        row.insertCell().textContent = columns[2];
+                        row.insertCell().textContent = columns[3];
+                    }
+                }
+
+                // Выводим статистику
+                let statsHtml = `<strong>Всего ответов:</strong> ${totalGuests} | `;
+                statsHtml += `<strong>Придут:</strong> ${comingGuests}<br>`;
+                statsHtml += `<strong>Популярный алкоголь:</strong> `;
+
+                const sortedAlcohol = Object.entries(alcoholCount)
+                    .sort((a, b) => b[1] - a[1])
+                    .map(([name, count]) => `${name} (${count})`);
+
+                statsHtml += sortedAlcohol.join(', ') || 'не указано';
+
+                stats.innerHTML = statsHtml;
+
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('Ошибка при загрузке данных: ' + error.message);
+            }
+        }
+
+        function exportCSV() {
+            window.open(
+                `https://github.com/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/blob/main/${GITHUB_CONFIG.path}`,
+                '_blank'
+            );
+        }
+
+        // Загружаем данные при открытии страницы
+        loadGuests();
+
+        // Автообновление каждые 30 секунд
+        setInterval(loadGuests, 30000);
+    </script>
+</body>
+
+</html>
