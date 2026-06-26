@@ -618,6 +618,79 @@ p.text {
     transform: rotate(-30deg) translate(-85%, -54px);
 }
 
+/* Дата внизу по центру */
+.welcome__date {
+    position: absolute;
+    bottom: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.welcome__date-text {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: #F1E0A1;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.welcome__date-line {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right,
+            transparent 0%,
+            #F1E0A1 50%,
+            transparent 100%);
+}
+
+/* Адаптивность для даты */
+@media (max-width: 768px) {
+    .welcome__date {
+        bottom: 160px;
+    }
+
+    .welcome__date-text {
+        font-size: 28px;
+        letter-spacing: 3px;
+    }
+
+    .welcome__date-line {
+        width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome__date {
+        bottom: 160px;
+    }
+
+    .welcome__date-text {
+        font-size: 24px;
+        letter-spacing: 2px;
+    }
+
+    .welcome__date-line {
+        width: 40px;
+    }
+}
+
+@media (max-width: 350px) {
+    .welcome__date {
+        bottom: 160px;
+    }
+
+    .welcome__date-text {
+        font-size: 20px;
+    }
+}
+
 /* place */
 .place {
     padding: 42px 0px;
@@ -817,6 +890,7 @@ p {
 .answer {
     padding-bottom: 42px;
 }
+
 .answer__title {
     position: relative;
 }
