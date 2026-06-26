@@ -17,6 +17,44 @@
     <title>Дмитрий и Надежда</title>
 </head>
 
+<!-- Прелоадер -->
+<div class="preloader" id="preloader">
+    <!-- Декоративные углы -->
+    <div class="preloader__corner preloader__corner--top-left"></div>
+    <div class="preloader__corner preloader__corner--top-right"></div>
+    <div class="preloader__corner preloader__corner--bottom-left"></div>
+    <div class="preloader__corner preloader__corner--bottom-right"></div>
+
+    <div class="preloader__content">
+        <!-- Декоративная линия сверху -->
+        <div class="preloader__ornament preloader__ornament--top"></div>
+
+        <div class="preloader__text">
+            <span class="preloader__word preloader__word--1">Пора</span>
+            <span class="preloader__word preloader__word--2">календарь</span>
+            <span class="preloader__word preloader__word--3">перевернуть</span>
+        </div>
+
+        <!-- Декоративная линия снизу -->
+        <div class="preloader__ornament preloader__ornament--bottom"></div>
+    </div>
+
+    <!-- Изображение в левом нижнем углу -->
+    <div class="preloader__image">
+        <img src="./img/shaf.png" alt="shaf">
+    </div>
+
+    <!-- Дата внизу по центру -->
+    <div class="preloader__date">
+        <div class="preloader__date-line"></div>
+        <span class="preloader__date-text">3 сентября</span>
+        <div class="preloader__date-line"></div>
+    </div>
+
+    <!-- Эффект тени при отрывании -->
+    <div class="preloader__shadow"></div>
+</div>
+
 <body>
 
     <section class="welcome">
@@ -225,6 +263,7 @@
         </div>
     </section>
 
+    <script src="js/load.js"></script>
     <script src="js/script.js"></script>
 </body>
 
